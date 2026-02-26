@@ -1,0 +1,34 @@
+============================================================
+ISL TWO-HAND MODEL TRAINING REPORT
+============================================================
+
+Training Date: 2026-02-26 22:58:22
+
+MODEL CONFIGURATION
+------------------------------------------------------------
+Model Type: RandomForestClassifier
+Number of Estimators: 100
+Features: 126 (63 left hand + 63 right hand)
+Number of Classes: 35
+Classes: 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z
+
+PERFORMANCE METRICS
+------------------------------------------------------------
+Training Accuracy: 100.00%
+Testing Accuracy:  99.99%
+Training Time: 17.19 seconds
+
+FEATURE IMPORTANCE (Top 10)
+------------------------------------------------------------
+  R_lm20_y: 0.0197
+  L_lm1_z: 0.0188
+  R_lm16_y: 0.0184
+  R_lm4_x: 0.0168
+  R_lm11_y: 0.0163
+  R_lm20_x: 0.0161
+  R_lm0_y: 0.0156
+  R_lm17_y: 0.0152
+  R_lm0_x: 0.0149
+  R_lm16_x: 0.0146
+
+============================================================
