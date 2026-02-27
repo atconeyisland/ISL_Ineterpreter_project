@@ -18,19 +18,19 @@ DEFAULT_RANDOM_STATE = 42
 
 def load_data(csv_path):
     """Load two-hand landmark data (126 features + 1 label)."""
-    print(f"📂 Loading data from: {csv_path}")
+    print(f"Loading data from: {csv_path}")
     
     if not os.path.exists(csv_path):
-        print(f"❌ ERROR: File not found: {csv_path}")
+        print(f"ERROR: File not found: {csv_path}")
         sys.exit(1)
     
     df = pd.read_csv(csv_path)
-    print(f"✅ Loaded {len(df)} samples")
-    print(f"📊 Total columns: {len(df.columns)}")
+    print(f"Loaded {len(df)} samples")
+    print(f"Total columns: {len(df.columns)}")
     
     # Check format
     if len(df.columns) != 127:
-        print(f"⚠️  WARNING: Expected 127 columns (126 features + 1 label), got {len(df.columns)}")
+        print(f"WARNING: Expected 127 columns (126 features + 1 label), got {len(df.columns)}")
         print(f"   Continuing anyway...")
     
     # Extract features and labels
@@ -44,19 +44,19 @@ def load_data(csv_path):
     # Remove NaN labels
     valid_mask = pd.notna(y) & (y != 'nan') & (y != '')
     if not valid_mask.all():
-        print(f"⚠️  Removing {(~valid_mask).sum()} rows with missing labels")
+        print(f"Removing {(~valid_mask).sum()} rows with missing labels")
         X = X[valid_mask]
         y = y[valid_mask]
     
     # Clean features
     X = np.nan_to_num(X, nan=0.0, posinf=0.0, neginf=0.0)
     
-    print(f"📊 Features shape: {X.shape}")
-    print(f"📊 Labels shape: {y.shape}")
-    print(f"📊 Expected features: 126 (63 left + 63 right)")
+    print(f"Features shape: {X.shape}")
+    print(f"Labels shape: {y.shape}")
+    print(f"Expected features: 126 (63 left + 63 right)")
     
     if X.shape[1] != 126:
-        print(f"❌ ERROR: Expected 126 features, got {X.shape[1]}")
+        print(f"ERROR: Expected 126 features, got {X.shape[1]}")
         print(f"   Make sure your CSV has:")
         print(f"   - 63 left hand features")
         print(f"   - 63 right hand features")
@@ -69,12 +69,12 @@ def load_data(csv_path):
 def analyze_dataset(X, y):
     """Analyze dataset."""
     print("\n" + "="*60)
-    print("📊 DATASET ANALYSIS")
+    print("DATASET ANALYSIS")
     print("="*60)
     
     unique_labels, counts = np.unique(y, return_counts=True)
-    print(f"\n📌 Total samples: {len(y)}")
-    print(f"📌 Number of classes: {len(unique_labels)}")
+    print(f"\nTotal samples: {len(y)}")
+    print(f"Number of classes: {len(unique_labels)}")
     
     # Sort labels
     try:
@@ -82,9 +82,9 @@ def analyze_dataset(X, y):
     except:
         sorted_labels = list(unique_labels)
     
-    print(f"📌 Classes: {sorted_labels}")
+    print(f"Classes: {sorted_labels}")
     
-    print(f"\n📈 Samples per class:")
+    print(f"\nSamples per class:")
     label_counts = dict(zip(unique_labels, counts))
     
     for label in sorted_labels:
@@ -98,10 +98,10 @@ def analyze_dataset(X, y):
     imbalance_ratio = max_samples / min_samples if min_samples > 0 else float('inf')
     
     if imbalance_ratio > 3:
-        print(f"\n⚠️  Class imbalance detected!")
+        print(f"\n Class imbalance detected!")
         print(f"   Min: {min_samples}, Max: {max_samples}, Ratio: {imbalance_ratio:.2f}x")
     else:
-        print(f"\n✅ Classes reasonably balanced (ratio: {imbalance_ratio:.2f}x)")
+        print(f"\nClasses reasonably balanced (ratio: {imbalance_ratio:.2f}x)")
     
     print("="*60 + "\n")
 
@@ -109,11 +109,11 @@ def analyze_dataset(X, y):
 def train_random_forest(X_train, y_train, n_estimators=100):
     """Train RandomForest on two-hand data."""
     print("="*60)
-    print("🌲 TRAINING TWO-HAND RANDOM FOREST MODEL")
+    print("TRAINING TWO-HAND RANDOM FOREST MODEL")
     print("="*60)
-    print(f"📊 Training samples: {len(X_train)}")
-    print(f"📊 Features: {X_train.shape[1]} (63 left + 63 right)")
-    print(f"📊 Estimators: {n_estimators}")
+    print(f"Training samples: {len(X_train)}")
+    print(f"Features: {X_train.shape[1]} (63 left + 63 right)")
+    print(f"Estimators: {n_estimators}")
     
     model = RandomForestClassifier(
         n_estimators=n_estimators,
@@ -125,13 +125,13 @@ def train_random_forest(X_train, y_train, n_estimators=100):
         verbose=0
     )
     
-    print(f"\n⏳ Training model...")
+    print(f"\nTraining model...")
     start_time = time.time()
     
     model.fit(X_train, y_train)
     
     training_time = time.time() - start_time
-    print(f"✅ Training complete in {training_time:.2f} seconds")
+    print(f"Training complete in {training_time:.2f} seconds")
     print("="*60 + "\n")
     
     return model, training_time
@@ -140,35 +140,35 @@ def train_random_forest(X_train, y_train, n_estimators=100):
 def evaluate_model(model, X_train, y_train, X_test, y_test):
     """Evaluate model."""
     print("="*60)
-    print("📈 MODEL EVALUATION")
+    print("MODEL EVALUATION")
     print("="*60)
     
     # Training accuracy
     y_train_pred = model.predict(X_train)
     train_accuracy = accuracy_score(y_train, y_train_pred)
-    print(f"\n🎯 Training Accuracy: {train_accuracy*100:.2f}%")
+    print(f"\nTraining Accuracy: {train_accuracy*100:.2f}%")
     
     # Testing accuracy
     y_test_pred = model.predict(X_test)
     test_accuracy = accuracy_score(y_test, y_test_pred)
-    print(f"🎯 Testing Accuracy:  {test_accuracy*100:.2f}%")
+    print(f"Testing Accuracy:  {test_accuracy*100:.2f}%")
     
     # Analysis
     accuracy_diff = train_accuracy - test_accuracy
     if accuracy_diff > 0.1:
-        print(f"\n⚠️  WARNING: Possible overfitting!")
+        print(f"\nWARNING: Possible overfitting!")
         print(f"   Train-Test difference: {accuracy_diff*100:.2f}%")
     elif test_accuracy > 0.90:
-        print(f"\n✅ EXCELLENT! Two-hand model is highly accurate!")
+        print(f"\nEXCELLENT! Two-hand model is highly accurate!")
     elif test_accuracy > 0.85:
-        print(f"\n✅ Great performance!")
+        print(f"\nGreat performance!")
     elif test_accuracy > 0.75:
-        print(f"\n✅ Good performance, acceptable for ISL")
+        print(f"\nGood performance, acceptable for ISL")
     else:
-        print(f"\n⚠️  Performance could be improved")
+        print(f"\nPerformance could be improved")
     
     print("\n" + "="*60)
-    print("📊 DETAILED CLASSIFICATION REPORT")
+    print("DETAILED CLASSIFICATION REPORT")
     print("="*60)
     
     unique_classes = np.unique(np.concatenate([y_test, y_test_pred]))
@@ -186,7 +186,7 @@ def evaluate_model(model, X_train, y_train, X_test, y_test):
 
 def save_model(model, model_path):
     """Save model."""
-    print(f"💾 Saving model to: {model_path}")
+    print(f"Saving model to: {model_path}")
     
     os.makedirs(os.path.dirname(model_path) if os.path.dirname(model_path) else '.', exist_ok=True)
     
@@ -194,18 +194,18 @@ def save_model(model, model_path):
         pickle.dump(model, f)
     
     file_size_mb = os.path.getsize(model_path) / (1024 * 1024)
-    print(f"✅ Model saved! File size: {file_size_mb:.2f} MB")
+    print(f"Model saved! File size: {file_size_mb:.2f} MB")
     
     # Test loading
     with open(model_path, 'rb') as f:
         test_load = pickle.load(f)
-    print(f"✅ Model loading test: PASSED\n")
+    print(f"Model loading test: PASSED\n")
 
 
 def save_training_info(output_path, model, train_accuracy, test_accuracy, 
                        n_estimators, training_time, class_names):
     """Save training info."""
-    print(f"📝 Saving training info to: {output_path}")
+    print(f"Saving training info to: {output_path}")
     
     os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else '.', exist_ok=True)
     
@@ -249,7 +249,7 @@ def save_training_info(output_path, model, train_accuracy, test_accuracy,
         
         f.write("\n" + "="*60 + "\n")
     
-    print(f"✅ Training info saved!\n")
+    print(f"Training info saved!\n")
 
 
 def main():
@@ -275,13 +275,13 @@ def main():
     analyze_dataset(X, y)
     
     # Split
-    print(f"✂️  Splitting data: {int((1-args.test_size)*100)}% train, {int(args.test_size*100)}% test")
+    print(f"Splitting data: {int((1-args.test_size)*100)}% train, {int(args.test_size*100)}% test")
     
     unique, counts = np.unique(y, return_counts=True)
     min_count = counts.min()
     
     if min_count < 2:
-        print(f"⚠️  Some classes have < 2 samples, using random split")
+        print(f"Some classes have < 2 samples, using random split")
         X_train, X_test, y_train, y_test = train_test_split(
             X, y,
             test_size=args.test_size,
@@ -315,17 +315,17 @@ def main():
     
     # Summary
     print("="*60)
-    print("🎉 TRAINING COMPLETE!")
+    print("TRAINING COMPLETE!")
     print("="*60)
-    print(f"✅ Model saved: {args.model}")
-    print(f"✅ Info saved:  {info_path}")
-    print(f"✅ Test Accuracy: {test_acc*100:.2f}%")
-    print(f"⏱️  Total time: {training_time:.2f} seconds")
-    print(f"\n📝 Model details:")
+    print(f"Model saved: {args.model}")
+    print(f"Info saved:  {info_path}")
+    print(f"Test Accuracy: {test_acc*100:.2f}%")
+    print(f"Total time: {training_time:.2f} seconds")
+    print(f"\n Model details:")
     print(f"   - Features: 126 (63 left + 63 right hand)")
     print(f"   - Classes: {len(class_names)} (A-Z, 0-9)")
     print(f"   - Estimators: {args.n_estimators}")
-    print("\n🚀 Next steps:")
+    print("\nNext steps:")
     print("   1. Check accuracy in info file")
     print("   2. Use main_two_hands.py for live testing")
     print("   3. If accuracy < 85%, collect more data")
