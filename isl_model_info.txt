@@ -2,33 +2,33 @@
 ISL TWO-HAND MODEL TRAINING REPORT
 ============================================================
 
-Training Date: 2026-02-27 17:55:23
+Training Date: 2026-02-27 19:37:14
 
 MODEL CONFIGURATION
 ------------------------------------------------------------
 Model Type: RandomForestClassifier
 Number of Estimators: 100
 Features: 126 (63 left hand + 63 right hand)
-Number of Classes: 35
-Classes: 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z
+Number of Classes: 33
+Classes: 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X
 
 PERFORMANCE METRICS
 ------------------------------------------------------------
 Training Accuracy: 100.00%
 Testing Accuracy:  99.99%
-Training Time: 8.84 seconds
+Training Time: 11.12 seconds
 
 FEATURE IMPORTANCE (Top 10)
 ------------------------------------------------------------
-  L_lm4_x: 0.0242
-  L_lm16_x: 0.0187
-  L_lm0_x: 0.0174
-  L_lm0_y: 0.0168
-  R_lm8_x: 0.0164
-  L_lm18_x: 0.0161
-  L_lm3_x: 0.0159
-  L_lm20_x: 0.0154
-  L_lm19_x: 0.0146
-  L_lm9_x: 0.0144
+  L_lm16_x: 0.0200
+  L_lm0_y: 0.0189
+  L_lm0_x: 0.0189
+  L_lm4_x: 0.0172
+  L_lm20_x: 0.0166
+  L_lm19_x: 0.0163
+  L_lm20_y: 0.0162
+  R_lm13_y: 0.0162
+  L_lm12_y: 0.0149
+  L_lm8_y: 0.0147
 
 ============================================================
