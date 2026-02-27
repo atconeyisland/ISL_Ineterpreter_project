@@ -11,8 +11,6 @@ A real-time **Indian Sign Language (ISL) interpreter** built with Python. Uses y
 - Detects your hand in real time using your webcam
 - Recognizes ISL hand signs (A–Z and 0–9)
 - Displays the predicted sign + confidence score on screen
-- Accumulates letters into words as you sign
-- Speaks the word aloud via text-to-speech
 
 ---
 
@@ -25,33 +23,6 @@ A real-time **Indian Sign Language (ISL) interpreter** built with Python. Uses y
 | Webcam & UI | OpenCV |
 | Text-to-Speech | pyttsx3 |
 | Language | Python 3.9+ |
-
----
-
-## Project Structure
-
-```
-ISL_Interpreter/
-│
-├── data/
-│   └── landmarks.csv          # collected hand landmark dataset
-│
-├── model/
-│   └── isl_model.pkl          # trained classifier
-│
-├── scripts/
-│   ├── collect_data.py        # records hand landmarks to CSV (Person A)
-│   ├── train_model.py         # trains the classifier (Person B)
-│   └── evaluate_model.py      # confusion matrix + accuracy report (Person B)
-│
-├── app/
-│   ├── webcam_skeleton.py     # Day 1 — basic webcam UI (Person C)
-│   ├── webcam_landmarks.py    # Day 3 — MediaPipe landmarks integrated (Person C)
-│   └── main.py                # Final app — full interpreter (Person C)
-│
-├── requirements.txt
-└── README.md
-```
 
 ---
 
