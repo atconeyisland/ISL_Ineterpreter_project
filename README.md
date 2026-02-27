@@ -74,10 +74,7 @@ python app/webcam_landmarks.py
 
 | Key | Action |
 |---|---|
-| `SPACE` | Speak the current word (TTS) |
-| `BACKSPACE` | Delete last letter from buffer |
-| `ENTER` | Clear the word buffer |
-| `I` | Toggle landmark index numbers |
+| `F` | Toggle fullscreen mode |
 | `Q` | Quit the app |
 
 ---
@@ -124,7 +121,7 @@ python scripts/train_model.py
 | Metric | Value |
 |---|---|
 | Overall accuracy | TBD (target: >88%) |
-| Classes | 36 (A–Z, 0–9) |
+| Classes | 35 (A–Z, 1–9) |
 | Model type | Random Forest / SVM |
 
 > Accuracy report will be updated after final training run.
@@ -135,7 +132,7 @@ python scripts/train_model.py
 
 - [x] Static sign recognition (A–Z, 0–9)
 - [x] Live webcam feed with UI overlay
-- [x] Text-to-speech output
+- [ ] Text-to-speech output
 - [ ] Dynamic gesture recognition (words/phrases) — LSTM model
 - [ ] Sentence formation from individual signs
 - [ ] Bidirectional interpreter (text/speech → ISL animation)
@@ -164,9 +161,3 @@ python scripts/train_model.py
 ## Contributing
 
 This is a student prototype project. Feel free to fork, improve the dataset, or swap in a better model. Pull requests welcome!
-
----
-
-## License
-
-MIT License — free to use and modify.
